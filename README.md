@@ -1,111 +1,90 @@
-# React Native App Assessment
+![banner](https://i.imgur.com/3e8vyiN.png)
 
-**This is the Fastned React Native App assessment. The assessment is intended to give us insights into your technical abilities, engineering approach and general technical working habits. We view your performance on this assessment as indicative of the work you will deliver as a Fastned software engineer.**
+## About the App
 
-The assessment consists of an assignment to prepare beforehand and a presentation about your implementation of the assignment at the Fastned’s office or through video conference.
+This app was made in React Native in order to carry out the Fastned React Native coding assignment.
 
-We ask you to treat the assessment confidential so we can use it again in the future.
+#### App Screens
 
-Your code should be pushed to a branch, not the `main` one.
+The app contains 4 different screens:
 
-At the assessment presentation, you are free to deliver your presentation in any form, but we expect you to cover:
+- Home Screen (List of vehicles)
+- Filter Screen (List of vehicles filtred by model)
+- Details Screen (Details of vehicle selected)
+- Charging Screen (Charging process)
 
-* The overall approach you took to the assignment
-* The architecture of the solution delivered
-* Your solution for each of the user stories
+![demo](https://i.imgur.com/oqeJCa3.png)
 
----
+#### Flow of the app
 
-## Assignment
+[Fastned | App Demo](https://youtu.be/qJvUNjb-QZM)
 
-### The Fastned Solar Charging Network
+## Architecture
 
-In an ongoing push to make the world greener, Fastned is investing in a mobile application that provides all electric vehicle drivers with information about their car. The Product Owner has passed you some stories and is expecting you to come up with a great solution.
+The app is separated in multiple folders inside the src folder. Each folder contains a different responsibility. The main objective of this is to keep the app clean and don't mix responsibilities in case of errors or app maintenance.
 
-A prerequisite is to have this application built with **React Native naked** and he is strict about ignoring any **React Native Expo** builds. And of course he is expecting your application to successfully build to **iOS** and **Android** without any issue.
+- **src**: contains all the folders of the app
+  - **assets**: folder responsable for images and animations.
+  - **components**: folder responsable for the reusable components of the app
+  - **constants**: Contains all the constants that don't change on the code.
+  - **controllers**: Contains the query services
+  - **hooks**: Folder in charge of app hooks.
+  - **localization**: Contains all the different strings of the app in english and spanish.
+  - **navigation**: Contains all the navigation login.
+  - **screens**: Contains all the main screen of the app.
+  - **services**: Contains the networking logic.
+  - **theme**: Contains all the theme related properties: colors, spacings, etc.
 
-### Backend service
+## Libraries
 
-This project contains a default backend service that provides a vehicle list and vehicle detail information. You can run the service in a Docker container from the root of this project by running:
+- react-native: 0.72.4
+- react-navigation/native: 6.1.7
+- axios: 1.5.0
+- lottie-react-native: 6.2.0
+- react-native-bootsplash: 5.0.2
+- react-native-config: 1.5.1
+- react-native-linear-gradient: 2.8.3
+- react-native-localization: 2.3.2
+- tanstack/react-query: 4.35.3
+- typescript: 5.2.2
+- redux-flipper: 2.0.2
+- prettier: 2.4.1
+- eslint: 8.47.0
+
+## How to run the app
+
+As others react native projects, you will need some requirements to run the app:
+
+Requirements
+Complete setting up enviroment for React Native https://reactnative.dev/docs/environment-setup
+
+### How to run
 
 ```
-docker-compose up -d
+git clone https://gitlab.com/fastned-recruitment/app/06092023-federico-martinez.git
 ```
 
-The following endpoints are available to use:
+**Run backend**
 
-* http://localhost:8485/api/vehicles/
-* http://localhost:8485/api/vehicles/$id/
+- `docker-compose up -d`
 
-## The Stories
+**To install dependencies**
 
-* Vehicle list screen: As Fastned we want a screen that **lists** all known vehicles so we can provide our customers with an overview to help them find their vehicle
-* Vehicle detail screen: As Fastned we want a **detailed** view of vehicle information so we can provide our customers with specific vehicle details
-* Navigation: As Fastned we want the customer to be able to seamlessly **navigate** between the list and detail view so we minimize the effort to find a vehicle
+- `yarn install`
 
-A note from the engineers: At Fastned we deliver all code with **tests**, we use **React query** for the data handling and use a **readme** in the project.
+**To run on simulator**
 
-### FAST-1: Vehicle list screen
+- `yarn ios`
 
-A full screen which renders a **flatlist**. Vehicle **Brand**, **Model** and **Version** should be rendered as an item inside the flatlist. Users should be **navigated** to the vehicle details screen with **on select** event.
+- `yarn android`
 
-### FAST-2: Vehicle detail screen
+## Testing
 
-A full screen that renders the selected **vehicle details**. All information should be rendered inside a scrollable content. This screen should have a **Go Back** button to the vehicle list screen. This detail screen should show the following data:
+[Fastned | Maestro Testing Demo](https://youtu.be/ZB0DTU8zd_M)
 
-* Photo
-* Brand, Model and Version
-* Connector Type
-* Recommended Charger
-* A link to external help screen of selected vehicle on Fastned website
-* A button to Start Charging
-* Users should be **navigated** to the charging screen with **on press** event of Start Charging button.
+Testing was done with [Maestro Testing](https://maestro.mobile.dev/platform-support/react-native)
 
-### FAST-3: Charging screen
-A full screen that showcases a vehicle's charging process along with some details of the vehicle. We will not provide any server project or data, so you will need to design the solution autonomously. You have the freedom to either hardcode the logic in the app or integrate Websocket/Socket IO functionalities — the choice is yours.
+To run maestro be sure to be running the simulator and after that on another terminal run the following command:
 
-#### Screen Elements
+- `yarn maestro`
 
-* Vehicle Information: Display the Brand, Model, and Version of the selected vehicle.
-* Charging Battery Animation: A dynamic representation of the charging process.
-* State of Charge: Provide a numerical or visual representation of the current charging state.
-* kWh Display (Optional): Show the energy value.
-* Speed Display (Optional): Present the charging speed.
-* Shadow Effect (Optional): Add a shadow beneath the battery animation for depth.
-
-#### Assets:
-
-You will find necessary assets and a sample animation video in the assets folder.
-We use JSON files for animations in conjunction with [Lottie Animations](https://github.com/lottie-react-native/lottie-react-native).
-
-##### Important Notes:
-
-* The barShine speed should decelerate to 0.25 when the state of charge is 80 or less.
-* State of charge values should follow a logical sequence, such as 1, 2, 3, 4, 5, 6...20...25...30, etc., without random jumps.
-* The green segment of the animation, referred to as the progress bar, should visually align with the state of charge. As the charge value increases, the width of the green bar should correspondingly expand.
-
----
-
-## Bonus
-
-* Search feature in the vehicle list
-* Showing kWh, speed and shadow under battery animation in charging screen
-* Maestro tests
-
-## Requirements
-### Technology Stack
-The application should be built using following:
-- React Native (version 0.70.0 or higher)
-- React Query (version 4.0.0 or higher) for data fetching
-- Typescript (version 5.0.0 or higher)
- 
-The choice of any additional libraries or tools is left to your discretion, but please be prepared to explain your decision for choosing them.
-
-### Code Quality
-The code should be clean, efficient, and easy to read. Make use of comments where necessary to explain your coding decisions. The usage of Typescript should enhance the readability and maintainability of the code.
-
-### Performance
-The application should run smoothly and load data efficiently. This would typically involve minimizing re-renders and efficiently managing state.
-
-### Testing (optional)
-We would like to see some integration tests using Maestro.
