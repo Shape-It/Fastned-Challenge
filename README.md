@@ -2,7 +2,7 @@
 
 ## About the App
 
-This app was made in React Native in order to carry out the Fastned React Native coding assignment.
+This app was made in React Native in order to carry out the Fastned React Native coding challenge.
 
 #### App Screens
 
